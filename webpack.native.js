@@ -28,6 +28,7 @@ module.exports = {
     'react-native-image-picker': 'react-native-image-picker',
     'react-native-image-crop-picker': 'react-native-image-crop-picker',
     'react-native-image-progress': 'react-native-image-progress',
+    'react-native-image-offline': 'react-native-image-offline',
     'react-native-progress': 'react-native-progress',
     'tcomb-form-native': 'tcomb-form-native',
     'tcomb-json-schema': 'tcomb-json-schema',

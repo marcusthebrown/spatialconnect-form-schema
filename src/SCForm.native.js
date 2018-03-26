@@ -66,10 +66,10 @@ class SCForm extends Component {
     let result = validateFields(formData, this.state.schema, this.state.options);
     this.setState({ options: result.options });
     let title = 'Save Feature';
-    let msg = 'Save feature and sync it with Boundless Exchange.';
+    let msg = 'Save feature and sync it with GeoSHAPE Exchange.';
     if (this.props.operation === 'update') {
       title = 'Save Changes';
-      msg = 'Save changes and sync them with Boundless Exchange.'
+      msg = 'Save changes and sync them with GeoSHAPE Exchange.'
     }
     if (!result.hasError) {
       Alert.alert(title, msg, [
@@ -83,7 +83,7 @@ class SCForm extends Component {
   formSubmitted() {
     // https://github.com/facebook/react-native/issues/10471
     requestAnimationFrame(() => {
-      Alert.alert('Success', 'Feature saved and synced with Boundless Exchange.', [
+      Alert.alert('Success', 'Feature saved and synced with GeoSHAPE Exchange.', [
         { text: 'Done', onPress: () => this.props.navigation.goBack() },
       ]);
     });
@@ -94,7 +94,7 @@ class SCForm extends Component {
     requestAnimationFrame(() => {
       Alert.alert(
         'Saved',
-        'This change has been saved to your device. Connect to a network to sync it to Boundless Exchange.',
+        'This change has been saved to your device. Connect to a network to sync it to GeoSHAPE Exchange.',
         [
           { text: 'Done', onPress: () => this.props.navigation.goBack() },
         ]

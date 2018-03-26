@@ -9,7 +9,7 @@ import {
   ScrollView
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-import Image from 'react-native-image-progress';
+import { OfflineImage } from 'react-native-image-offline';
 import * as Progress from 'react-native-progress';
 import scstyles from 'scstyles';
 import { green, gray } from 'palette';
@@ -120,11 +120,9 @@ class SCFormPhotos extends Component {
                     onPress={this.takePicture.bind(this)}
                   >
                     <View style={styles.imageContainer}>
-                      <Image
+                      <OfflineImage
                         style={styles.image}
                         source={imgSrc}
-                        indicator={Progress.Circle}
-                        indicatorProps={{ color: green }}
                       />
                       <TouchableOpacity
                         key={idx}
@@ -154,11 +152,9 @@ class SCFormPhotos extends Component {
                     onPress={this.takePicture.bind(this)}
                   >
                     <View style={styles.imageContainer}>
-                      <Image
+                      <OfflineImage
                         style={styles.image}
                         source={imgSrc}
-                        indicator={Progress.Circle}
-                        indicatorProps={{ color: green }}
                       />
                       <TouchableOpacity
                         key={idx}
