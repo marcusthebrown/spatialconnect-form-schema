@@ -35,5 +35,8 @@
     "proxyquire": "^1.7.9",
     "tcomb-form": "^0.9.5",
     "webpack": "^1.13.0"
+  },
+  "dependencies": {
+    "babel-preset-react-native": "^4.0.0"
   }
 }

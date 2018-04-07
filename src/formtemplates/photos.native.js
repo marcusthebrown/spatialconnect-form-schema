@@ -31,8 +31,10 @@ class SCFormPhotos extends Component {
 
   choosePhotosVideos() {
     this.setState({ loading: true });
+    // first object is request object: https://github.com/ivpusic/react-native-image-crop-picker#request-object
     ImagePicker.openPicker({
-      multiple: true
+      multiple: true,
+      compressImageQuality: 0.05,  
     })
       .then(images => {
         // images is an array of objects: https://github.com/ivpusic/react-native-image-crop-picker#response-object
