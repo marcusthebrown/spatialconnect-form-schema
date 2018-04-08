@@ -18,15 +18,18 @@ class SCFormPhotos extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      photos: [],
+      photos: '[]',
       loading: false
     };
     this.removePhoto = this.removePhoto.bind(this);
   }
 
   removePhoto(photo) {
-    let photos = this.state.photos.filter(p => p != photo);
-    this.setState({ photos });
+    console.log('filtering out photo', photo)
+    let photos = JSON.parse(this.state.photos).filter(p => p != photo);
+    let photosString = JSON.stringify(photos)
+    console.log('new photos', photosString)
+    this.setState({ photos: photosString });
   }
 
   choosePhotosVideos() {
@@ -38,10 +41,10 @@ class SCFormPhotos extends Component {
     })
       .then(images => {
         // images is an array of objects: https://github.com/ivpusic/react-native-image-crop-picker#response-object
-        let newPhotos = this.state.photos.concat(images.map(i => i.path));
+        let newPhotos = JSON.parse(this.state.photos).concat(images.map(i => i.path));
         this.setState({
           loading: false,
-          photos: newPhotos
+          photos: JSON.stringify(newPhotos)
         });
       })
       .catch(e => {
@@ -56,10 +59,10 @@ class SCFormPhotos extends Component {
       height: 400
     })
       .then(image => {
-        let newPhotos = this.state.photos.concat(image.path);
+        let newPhotos = JSON.parse(this.state.photos).concat(image.path);
         this.setState({
           loading: false,
-          photos: newPhotos
+          photos: JSON.stringify(newPhotos)
         });
       })
       .catch(e => {
@@ -69,6 +72,7 @@ class SCFormPhotos extends Component {
 
   componentWillMount() {
     if (this.props.value) {
+      console.log('setting photos to', this.props.value)
       this.setState({ photos: this.props.value });
     }
   }
@@ -78,6 +82,7 @@ class SCFormPhotos extends Component {
   }
 
   render() {
+    console.log('this.state.photos', this.state.photos)
     return (
       <View style={styles.container}>
         <View>
@@ -106,6 +111,7 @@ class SCFormPhotos extends Component {
           <View>
             {this.state.photos &&
               typeof this.state.photos === 'string' &&
+              typeof this.state.photos != '' &&
               JSON.parse(this.state.photos).map((photo, idx) => {
                 let photoUri = photo.split('?')[0];
                 let accessToken = photo.split('access_token=')[1];
@@ -115,39 +121,6 @@ class SCFormPhotos extends Component {
                       headers: { Authorization: `Bearer ${accessToken}` }
                     }
                   : { uri: photoUri };
-                console.log('photos.native was passed string imgSrc is ', imgSrc);
-                return (
-                  <TouchableOpacity
-                    key={idx}
-                    onPress={this.takePicture.bind(this)}
-                  >
-                    <View style={styles.imageContainer}>
-                      <OfflineImage
-                        style={styles.image}
-                        source={imgSrc}
-                      />
-                      <TouchableOpacity
-                        key={idx}
-                        onPress={() => this.removePhoto(photo)}
-                      >
-                        <Text style={styles.remove}>X</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
-            {this.state.photos &&
-              typeof this.state.photos === 'object' &&
-              this.state.photos.map((photo, idx) => {
-                let photoUri = photo.split('?')[0];
-                let accessToken = photo.split('access_token=')[1];
-                let imgSrc = accessToken
-                  ? {
-                      uri: photoUri,
-                      headers: { Authorization: `Bearer ${accessToken}` }
-                    }
-                  : { uri: photoUri };
-                console.log('photos.native passed object/array imgSrc is ', imgSrc);
                 return (
                   <TouchableOpacity
                     key={idx}
