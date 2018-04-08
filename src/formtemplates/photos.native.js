@@ -34,7 +34,7 @@ class SCFormPhotos extends Component {
     // first object is request object: https://github.com/ivpusic/react-native-image-crop-picker#request-object
     ImagePicker.openPicker({
       multiple: true,
-      compressImageQuality: 0.05,  
+      compressImageQuality: 0.01,  
     })
       .then(images => {
         // images is an array of objects: https://github.com/ivpusic/react-native-image-crop-picker#response-object
@@ -198,6 +198,8 @@ export default function(locals) {
         {locals.error}
       </Text>
     ) : null;
+
+  console.log('locals.value', locals.value);
 
   return (
     <View style={formGroupStyle}>
