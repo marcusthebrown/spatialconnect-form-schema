@@ -37,6 +37,7 @@
     "webpack": "^1.13.0"
   },
   "dependencies": {
-    "babel-preset-react-native": "^4.0.0"
+    "babel-preset-react-native": "^4.0.0",
+    "moment": "^2.22.0"
   }
 }

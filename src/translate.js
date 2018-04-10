@@ -2,6 +2,7 @@ import sortBy from 'lodash/sortBy';
 import cloneDeep from 'lodash/cloneDeep';
 import formtemplates from './formtemplates';
 import scstyles from 'scstyles';
+import moment from 'moment';
 
 let fieldMap = {
   is_required: 'required',
@@ -60,6 +61,9 @@ function translate({ scSchema, onFocus }) {
     }
     if (field.type == 'date') {
       fieldOptions.mode = 'date';
+      fieldOptions.config = {
+        format: (date) => (date === 'Invalid Date') ? moment(new Date()).format('DD/MM/YYYY') : moment(date).format('DD/MM/YYYY'), 
+      };
     }
     if (field.type == 'time') {
       fieldOptions.mode = 'time';
@@ -85,7 +89,12 @@ function translate({ scSchema, onFocus }) {
   let initialValues = {};
   for (let prop in schema.properties) {
     if (schema.properties[prop].hasOwnProperty('initialValue')) {
+      console.log(`set initial value for ${prop} to ${JSON.stringify(schema.properties[prop])}`)
       initialValues[prop] = schema.properties[prop].initialValue;
+      if (/*Platform.OS === 'android' && */schema.properties[prop].type === 'date') {
+        initialValues[prop] = schema.properties[prop].initialValue ? new Date(schema.properties[prop].initialValue) : new Date();
+        console.log('initial value is', initialValues[prop])
+      }
     } else {
       initialValues[prop] = null;
     }
